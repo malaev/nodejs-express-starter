@@ -19,10 +19,10 @@ const sessionSchema = new mongoose.Schema({
         index: true,
         default: uuid.generate
     },
-    token: String,
-    os: String,
     browser: String,
-    source: String
+    os: String,
+    source: String,
+    token: String
 })
 
 const userSchema = new mongoose.Schema({
@@ -85,7 +85,7 @@ userSchema.methods.signIn = function({ password, useragent }) {
         token: random()
     }
 
-    this.sessions.unshift(session)
+    this.sessions = [session, ...this.sessions]
 
     return this.save()
         .then(() => session.token || '')

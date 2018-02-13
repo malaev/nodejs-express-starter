@@ -2,10 +2,11 @@ const router = require('express').Router()
 const User = require('../models/user')
 const mongoose = require('../libs/mongoose')
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
     const token = req.headers['authorization']
 
-    if (!token || token.length < 60) return res.error(401)
+    if (!token || token.length < 60)
+        return res.error(401)
 
     User.findOne({ 'sessions.token': token })
         .select('-hash -inviteHash -__v')

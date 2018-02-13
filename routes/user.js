@@ -1,18 +1,18 @@
 const router = require('express').Router()
 const User = require('../models/user')
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     res.json(req.user)
 })
 
-router.patch('/', function(req, res) {
+router.patch('/', (req, res) => {
     User.findOneAndUpdate({ _id: req.user.id }, data, { new: true })
         .select('-hash -inviteHash -__v')
         .then(user => res.json(user))
         .catch(error => res.error(error))
 })
 
-router.delete('/session/:uuid?', function(req, res) {
+router.delete('/session/:uuid?', (req, res) => {
     const { sessions } = req.user
 
     const index = req.params.uuid
@@ -25,7 +25,7 @@ router.delete('/session/:uuid?', function(req, res) {
     const session = sessions[index]
     const query = [
         { _id: req.user.id },
-        { sessions: sessions.slice(0, index).concat(sessions.slice(index + 1))},
+        { sessions: [...sessions.slice(0, index), ...sessions.slice(index + 1)]},
         { new: true }
     ]
 

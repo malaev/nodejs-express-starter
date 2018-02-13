@@ -4,6 +4,7 @@ const auth = require('./auth')
 const echo = require('./echo')
 const time = require('./time')
 const user = require('./user')
+
 const authorize = require('../middlewares/authorize')
 
 router
