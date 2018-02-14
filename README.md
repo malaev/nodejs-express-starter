@@ -24,6 +24,11 @@ Node.js Express starter with MongoDB
 * ``[PATCH]: /user`` - update user
 * ``[DELETE]: /user/session/:uuid`` - remove user session
 
+### Test
+``npm test``
+
 ### TODO
 * Socket support
-* Tests coverage (... in progress)
+* 100% tests coverage (... progress: 65.53%)
+* Swagger documentation
+* GrpahQL support

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./server.js",
     "test": "npm run lint && npm run jest",
-    "jest": "jest -coverage ./spec",
+    "jest": "jest --coverage --ci ./spec",
     "lint": "gulp lint"
   },
   "jest": {
