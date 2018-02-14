@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/salikovpro/nodejs-express-starter.svg?branch=master)](https://travis-ci.org/salikovpro/nodejs-express-starter)
+
 # nodejs-express-starter
 Node.js Express starter with MongoDB
 
