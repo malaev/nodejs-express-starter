@@ -39,25 +39,26 @@ module.exports = (req, res, next) => {
 
         if (error.code && error.code == 11000) {
             inspect(error)
+
             return res.status(409).end(message || parse(409))
         }
 
-        if (
-            error.name &&
-            (error.name === 'ValidationError' || error.name === 'CastError')
-        ) {
+        if (error.name && (error.name === 'ValidationError' || error.name === 'CastError')) {
             inspect(error)
+
             res.statusMessage = error._message
             return res.status(400).end()
         }
 
         if (error.status && error.message) {
             inspect(error)
+
             return res.status(error.status).end(error.message)
         }
 
         if (error.status) {
             inspect(error)
+
             return res.status(error.status).end(message || parse(error.status))
         }
 

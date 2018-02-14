@@ -51,7 +51,8 @@ const userSchema = new mongoose.Schema({
         index: true,
         default: random
     },
-    sessions: [sessionSchema]
+    sessions: [sessionSchema],
+    name: String
 })
 
 sessionSchema.pre('save', function(next) {

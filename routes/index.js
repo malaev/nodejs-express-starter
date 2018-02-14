@@ -1,18 +1,21 @@
 const router = require('express').Router()
 
-const auth = require('./auth')
-const echo = require('./echo')
-const time = require('./time')
-const user = require('./user')
+const services = {
+    authorize: require('../middlewares/authorize'),
+    libs: {
+        random: require('../libs/random')
+    },
+    models: {
+        user: require('../models/user')
+    }
+}
 
-const authorize = require('../middlewares/authorize')
+const Auth = require('./auth')(services)
+const User = require('./user/')(services)
 
 router
-    .use('/auth', auth)
-    .use('/echo', echo)
-    .use('/time', time)
-    .all('*', authorize)
-    .use('/user', user)
+    .use('/auth', Auth)
+    .use('/user', User)
     .all('*', (req, res) => res.error(405))
 
 module.exports = router

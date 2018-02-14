@@ -4,9 +4,10 @@ Node.js Express starter with MongoDB
 ### Features
 * [Express.js](http://expressjs.com)
 * [Mongoose](http://mongoosejs.com)
+* [Joi](https://github.com/hapijs/joi)
 
 ### Usage
-...
+Just add your own models and routes and have a fun!
 
 ### Default enpoints
 * ``[GET]: /auth/:email`` - check if email is exist
@@ -16,5 +17,6 @@ Node.js Express starter with MongoDB
 * ``[PATCH]: /user`` - update user
 * ``[DELETE]: /user/session/:uuid`` - remove user session
 
-### Contributing
-...
+### TODO
+* Socket support
+* Tests coverage
