@@ -2,11 +2,11 @@
   "name": "nodejs-express-starter",
   "version": "1.0.0",
   "description": "Node.js Express starter with MongoDB",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node ./server.js",
     "test": "npm run lint && npm run jest",
-    "jest": "jest --forceExit ./tests",
+    "jest": "jest --forceExit --coverage ./tests",
     "lint": "gulp lint"
   },
   "repository": {

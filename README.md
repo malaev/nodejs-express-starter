@@ -9,6 +9,7 @@ Node.js Express starter with MongoDB
 * [Cors](https://github.com/expressjs/cors)
 * [Mongoose](http://mongoosejs.com)
 * [Joi](https://github.com/hapijs/joi)
+* [Jest](https://facebook.github.io/jest)
 
 ### Usage
 * Just add your own models and routes
