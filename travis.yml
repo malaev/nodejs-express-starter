@@ -5,3 +5,8 @@ cache:
 
 node_js:
   - "8.9.4"
+
+install: true
+
+script:
+    - "npm test"

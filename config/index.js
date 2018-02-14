@@ -2,7 +2,7 @@ const nconf = require('nconf')
 const path = require('path')
 
 nconf.argv()
-    .env()
+    .env('_')
     .file({ file: path.join(__dirname, 'options.json') })
 
 module.exports = nconf

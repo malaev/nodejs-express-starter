@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const User = require('../models/user')
-const mongoose = require('../libs/mongoose')
 
 module.exports = (req, res, next) => {
     const token = req.headers['authorization']

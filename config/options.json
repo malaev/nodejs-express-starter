@@ -12,7 +12,7 @@
     "LOGGER": "dev",
     "MONGODB": {
         "DB": "nodejs-express-starter",
-        "HOST": "mongodb://mongo",
+        "HOST": "mongodb://localhost:27017",
         "OPTIONS": {
             "autoReconnect": true,
             "reconnectTries": 1000,
