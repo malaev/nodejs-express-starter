@@ -9,9 +9,16 @@ const CONNECTION_STRING = `${config.get('MONGODB:HOST')}/${config.get('MONGODB:D
 require('mongoose-double')(mongoose)
 mongoose.Promise = require('bluebird')
 
-mongoose
-    .connect(CONNECTION_STRING, config.get('MONGODB:OPTIONS'))
-    .then(() => log(`:: MONGOOSE CONNECTED > ${CONNECTION_STRING}`, 'blue'))
-    .catch(error => inspect(error))
+if (process.env.NODE_ENV === 'test') {
+    const Mockgoose = require('mockgoose').Mockgoose
+    const mockgoose = new Mockgoose(mongoose)
+
+    mockgoose.prepareStorage().then(() => mongoose.connect('mongodb://test'))
+} else {
+    mongoose
+        .connect(CONNECTION_STRING, config.get('MONGODB:OPTIONS'))
+        .then(() => log(`:: MONGOOSE CONNECTED > ${CONNECTION_STRING}`, 'blue'))
+        .catch(error => inspect(error))
+}
 
 module.exports = mongoose

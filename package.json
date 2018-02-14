@@ -4,8 +4,9 @@
   "description": "Node.js Express starter with MongoDB",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "test": "npm run lint",
+    "start": "node ./server.js",
+    "test": "npm run lint && npm run jest",
+    "jest": "jest --forceExit ./tests",
     "lint": "gulp lint"
   },
   "repository": {
@@ -40,9 +41,15 @@
     "shortid": "^2.2.8"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.17.0",
     "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.2"
+    "gulp-eslint": "^4.0.2",
+    "jest": "^22.3.0",
+    "mockgoose": "^7.3.5",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0"
   }
 }

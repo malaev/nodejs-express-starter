@@ -25,4 +25,4 @@ Node.js Express starter with MongoDB
 
 ### TODO
 * Socket support
-* Tests coverage
+* Tests coverage (... in progress)
