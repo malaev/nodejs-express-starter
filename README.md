@@ -29,6 +29,6 @@ Node.js Express starter with MongoDB
 
 ### TODO
 * Socket support
-* 100% tests coverage (... progress: 65.53%)
+* 100% tests coverage (... progress: 66.67%)
 * Swagger documentation
 * GrpahQL support
