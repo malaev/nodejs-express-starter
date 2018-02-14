@@ -6,13 +6,12 @@ describe('/auth/:email', () => {
         const response = await request(app).get(`/auth/invalid@email`)
 
         expect(response.statusCode).toBe(400)
-    })
+    }, 10000)
 
     test('It should be 404 for valid email', async () => {
         const response = await request(app).get(`/auth/valid@email.com`)
-
         expect(response.statusCode).toBe(404)
-    })
+    }, 10000)
 })
 
 describe('/auth/up', () => {
@@ -29,5 +28,5 @@ describe('/auth/up', () => {
             .then(() => request(app).get(`/auth/${data.email}`))
 
         expect(response.statusCode).toBe(200)
-    })
+    }, 10000)
 })
