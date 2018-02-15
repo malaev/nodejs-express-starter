@@ -9,7 +9,7 @@ describe('/user', () => {
         password: 'password'
     }
 
-    afterAll(() => {
+    afterEach(() => {
         mongoose.connection.db.dropDatabase()
     })
 
@@ -30,7 +30,7 @@ describe('/user', () => {
 
     test('It should be 200 with valid user name', async () => {
         const authUpResponse = await request(app)
-            .post('/auth/in')
+            .post('/auth/up')
             .type('form')
             .send(body)
 
@@ -46,7 +46,7 @@ describe('/user', () => {
 
     test('It should be 200 for delete session and 403 for user', async () => {
         const authUpResponse = await request(app)
-            .post('/auth/in')
+            .post('/auth/up')
             .type('form')
             .send(body)
 
@@ -72,7 +72,7 @@ describe('/user', () => {
 
     test('It should be 404 for delete undefined session and 200 for user', async () => {
         const authUpResponse = await request(app)
-            .post('/auth/in')
+            .post('/auth/up')
             .type('form')
             .send(body)
 
