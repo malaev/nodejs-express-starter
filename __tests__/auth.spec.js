@@ -3,6 +3,17 @@ const app = require('../app')
 const mongoose = require('../libs/mongoose')
 const CIDELAY = 300000
 
+describe('/notfound', () => {
+    afterAll(() => {
+        mongoose.connection.db.dropDatabase()
+    })
+
+    test('It should be 405 for not found path', async () => {
+        const response = await request(app).get(`/notfound`)
+        expect(response.statusCode).toBe(405)
+    }, CIDELAY)
+})
+
 describe('/auth/:email', () => {
     afterAll(() => {
         mongoose.connection.db.dropDatabase()

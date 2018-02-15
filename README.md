@@ -16,6 +16,11 @@ Node.js Express starter with MongoDB
 * ``docker-compose up --build``
 * Have a fun!
 
+### Running
+You must have runned your local MongoDB daemon at `:27017`
+* ``make`` - run develop server
+* ``make test`` - run local tests
+
 ### Default enpoints
 * ``[GET]: /auth/:email`` - check if email is exist
 * ``[POST]: /auth/in`` - authorize user by `email` and `password`
@@ -29,6 +34,6 @@ Node.js Express starter with MongoDB
 
 ### TODO
 * Socket support
-* 100% tests coverage (... progress: 66.67%)
+* 100% tests coverage (... progress: 88.24%)
 * Swagger documentation
 * GrpahQL support

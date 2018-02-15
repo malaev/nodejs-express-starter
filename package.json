@@ -10,7 +10,12 @@
     "lint": "gulp lint"
   },
   "jest": {
-    "forceExit": true
+    "forceExit": true,
+    "coveragePathIgnorePatterns": [
+      "/libs/",
+      "/middlewares/",
+      "/node_modules/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -53,7 +58,6 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.2",
     "jest": "^22.3.0",
-    "mockgoose": "^7.3.5",
     "superagent": "^3.8.2",
     "supertest": "^3.0.0"
   }

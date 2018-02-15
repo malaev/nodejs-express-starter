@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const { Mockgoose } = require('mockgoose')
-const mockgoose = new Mockgoose(mongoose)
 
 const inspect = require('./inspect')
 const log = require('./log')
@@ -11,15 +9,9 @@ const CONNECTION_STRING = `${config.get('MONGODB:HOST')}/${config.get('MONGODB:D
 require('mongoose-double')(mongoose)
 mongoose.Promise = require('bluebird')
 
-if (process.env.NODE_ENV !== 'test') {
-    mongoose
-        .connect(CONNECTION_STRING, config.get('MONGODB:OPTIONS'))
-        .then(() => log(`:: MONGOOSE CONNECTED > ${CONNECTION_STRING}`, 'blue'))
-        .catch(error => inspect(error))
-} else {
-    mockgoose
-        .prepareStorage()
-        .then(() => mongoose.connect(''))
-}
+mongoose
+    .connect(CONNECTION_STRING, config.get('MONGODB:OPTIONS'))
+    .then(() => log(`:: MONGOOSE CONNECTED > ${CONNECTION_STRING}`, 'blue'))
+    .catch(error => inspect(error))
 
 module.exports = mongoose
