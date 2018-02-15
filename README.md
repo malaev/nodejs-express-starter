@@ -22,7 +22,7 @@ You must have runned your local MongoDB daemon at `:27017`
 * ``make test`` - run local tests
 
 ### Default enpoints
-* ``[GET]: /auth/:email`` - check if email is exist
+* ``[GET]: /auth/:email`` - check if email exist
 * ``[POST]: /auth/in`` - authorize user by `email` and `password`
 * ``[POST]: /auth/up`` - create user by `email` and `password`
 * ``[GET]: /user`` - get user
