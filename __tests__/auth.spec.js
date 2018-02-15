@@ -4,6 +4,10 @@ const mongoose = require('../libs/mongoose')
 const CIDELAY = 300000
 
 describe('/notfound', () => {
+    afterAll(() => {
+        mongoose.connection.db.dropDatabase()
+    })
+
     test('It should be 405 for not found path', async () => {
         const response = await request(app).get(`/notfound`)
         expect(response.statusCode).toBe(405)
@@ -28,7 +32,7 @@ describe('/auth/:email', () => {
 })
 
 describe('/auth/up', () => {
-    afterEach(() => {
+    afterAll(() => {
         mongoose.connection.db.dropDatabase()
     })
 
@@ -76,26 +80,14 @@ describe('/auth/up', () => {
     }, CIDELAY)
 
     test('It should be 200 for created member', async () => {
-        const data = {
-            email: 'test@test.com',
-            password: 'password'
-        }
-
-        const authUpResponse = await request(app)
-            .post('/auth/up')
-            .type('form')
-            .send(data)
-
-        const response = await request(app)
-            .get('/auth/test@test.com')
+        const response = await request(app).get('/auth/test@test.com')
 
         expect(response.statusCode).toBe(200)
-        expect(response.body.email).toBe(data.email)
     }, CIDELAY)
 })
 
 describe('/auth/in', () => {
-    afterEach(() => {
+    afterAll(() => {
         mongoose.connection.db.dropDatabase()
     })
 
