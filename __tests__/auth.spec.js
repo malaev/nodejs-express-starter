@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../app')
 const mongoose = require('../libs/mongoose')
-const CIDELAY = 30000
+const CIDELAY = 300000
 
 describe('/auth/:email', () => {
     afterAll(() => {
