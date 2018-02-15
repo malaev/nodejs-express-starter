@@ -6,12 +6,13 @@ env:
     - MONGODB_VERSION=3.6.2
 
 install:
-  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-$MONGODB_VERSION.tgz
-  - tar xfz mongodb-linux-x86_64-$MONGODB_VERSION.tgz
-  - export PATH=`pwd`/mongodb-linux-x86_64-$MONGODB_VERSION/bin:$PATH
-  - mkdir -p data/db
-  - mongod --dbpath=data/db &
-  - sleep 3
+    - npm install
+    - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-$MONGODB_VERSION.tgz
+    - tar xfz mongodb-linux-x86_64-$MONGODB_VERSION.tgz
+    - export PATH=`pwd`/mongodb-linux-x86_64-$MONGODB_VERSION/bin:$PATH
+    - mkdir -p data/db
+    - mongod --dbpath=data/db &
+    - sleep 3
 
 node_js:
   - "8.9.4"
