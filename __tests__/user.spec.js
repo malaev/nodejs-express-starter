@@ -44,7 +44,7 @@ describe('/user', () => {
         expect(userResponse.body.name).toBe('Test')
     }, CIDELAY)
 
-    test('It should be 200 for deleteSession and 403 for user', async () => {
+    test('It should be 200 for delete session and 403 for user', async () => {
         const authUpResponse = await request(app)
             .post('/auth/in')
             .type('form')
@@ -68,5 +68,31 @@ describe('/user', () => {
 
         expect(deleteSessionResponse.statusCode).toBe(200)
         expect(userResponseAfterDeleteSession.statusCode).toBe(403)
+    }, CIDELAY)
+
+    test('It should be 404 for delete undefined session and 200 for user', async () => {
+        const authUpResponse = await request(app)
+            .post('/auth/in')
+            .type('form')
+            .send(body)
+
+        const userResponse = await request(app)
+            .patch('/user')
+            .type('form')
+            .send({ name: 'Test' })
+            .set({ Authorization: authUpResponse.body })
+
+        const { uuid } = userResponse.body.sessions[0]
+
+        const deleteSessionResponse = await request(app)
+            .delete(`/user/session/000000`)
+            .set({ Authorization: authUpResponse.body })
+
+        const userResponseAfterDeleteSession = await request(app)
+            .get('/user')
+            .set({ Authorization: authUpResponse.body })
+
+        expect(deleteSessionResponse.statusCode).toBe(404)
+        expect(userResponseAfterDeleteSession.statusCode).toBe(200)
     }, CIDELAY)
 })

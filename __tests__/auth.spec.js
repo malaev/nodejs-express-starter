@@ -121,7 +121,7 @@ describe('/auth/in', () => {
 
     test('It should be 404 for missed member', async () => {
         const data = {
-            email: 'test2@test.com',
+            email: 'undefined@test.com',
             password: 'password'
         }
 
@@ -131,6 +131,30 @@ describe('/auth/in', () => {
             .send(data)
 
         expect(response.statusCode).toBe(404)
+    }, CIDELAY)
+
+    test('It should be 403 for wrong email or password', async () => {
+        const data = {
+            email: 'test@test.com',
+            password: 'password'
+        }
+
+        const payload = {
+            email: 'test@test.com',
+            password: 'undefined_password'
+        }
+
+        const authUpResponse = await request(app)
+            .post('/auth/up')
+            .type('form')
+            .send(data)
+
+        const response = await request(app)
+            .post('/auth/in')
+            .type('form')
+            .send(payload)
+
+        expect(response.statusCode).toBe(403)
     }, CIDELAY)
 
     test('It should be 200 and 64 symbols hash for exist member', async () => {

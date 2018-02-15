@@ -34,6 +34,5 @@ You must have runned your local MongoDB daemon at `:27017`
 
 ### TODO
 * Socket support
-* 100% tests coverage (... progress: 88.24%)
 * Swagger documentation
 * GrpahQL support
