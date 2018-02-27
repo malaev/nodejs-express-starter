@@ -6,7 +6,7 @@ const CIDELAY = 300000;
 describe('/user', () => {
     const body = {
         email: 'valid@email.com',
-        password: 'password'
+        password: 'password',
     };
 
     afterEach(() => {
@@ -44,7 +44,7 @@ describe('/user', () => {
         expect(userResponse.body.name).toBe('Test');
     }, CIDELAY);
 
-    test('It should be 200 for delete session and 403 for user', async () => {
+    test('It should be 204 for delete session and 403 for user', async () => {
         const authUpResponse = await request(app)
             .post('/auth/up')
             .type('form')
@@ -66,7 +66,7 @@ describe('/user', () => {
             .get('/user')
             .set({ Authorization: authUpResponse.body });
 
-        expect(deleteSessionResponse.statusCode).toBe(200);
+        expect(deleteSessionResponse.statusCode).toBe(204);
         expect(userResponseAfterDeleteSession.statusCode).toBe(403);
     }, CIDELAY);
 

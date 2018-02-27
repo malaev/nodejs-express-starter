@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
         .select('-hash -inviteHash -__v')
         .populate({
             path: 'sessions',
-            select: '-_id'
+            select: '-_id',
         })
         .then(user => {
             if (!user)

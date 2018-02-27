@@ -96,9 +96,9 @@ userSchema.virtual('password').set(function(value) {
     this.hash = crypt.SHA512(value).toString();
 });
 
-userSchema.methods.signIn = function({ password, useragent, }) {
+userSchema.methods.signIn = function({ password, useragent }) {
     if (crypt.SHA512(password).toString() !== this.hash)
-        throw { status: 403, };
+        throw { status: 403 };
 
     const index = this.sessions
         .findIndex(session => session.source == useragent.source);

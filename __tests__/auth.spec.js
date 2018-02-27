@@ -39,7 +39,7 @@ describe('/auth/up', () => {
     test('It should be 400 for invalid email', async () => {
         const data = {
             email: 'invalid@email',
-            password: 'password'
+            password: 'password',
         };
 
         const response = await request(app)
@@ -53,7 +53,7 @@ describe('/auth/up', () => {
     test('It should be 400 for short (<8) password', async () => {
         const data = {
             email: 'invalid@email.com',
-            password: 'pass'
+            password: 'pass',
         };
 
         const response = await request(app)
@@ -67,7 +67,7 @@ describe('/auth/up', () => {
     test('It should be 200 and 64 symbols hash for exist member', async () => {
         const data = {
             email: 'test@test.com',
-            password: 'password'
+            password: 'password',
         };
 
         const response = await request(app)
@@ -94,7 +94,7 @@ describe('/auth/in', () => {
     test('It should be 400 for invalid email', async () => {
         const data = {
             email: 'invalid@email',
-            password: 'password'
+            password: 'password',
         };
 
         const response = await request(app)
@@ -108,7 +108,7 @@ describe('/auth/in', () => {
     test('It should be 400 for short (<8) password', async () => {
         const data = {
             email: 'invalid@email.com',
-            password: 'pass'
+            password: 'pass',
         };
 
         const response = await request(app)
@@ -122,7 +122,7 @@ describe('/auth/in', () => {
     test('It should be 404 for missed member', async () => {
         const data = {
             email: 'undefined@test.com',
-            password: 'password'
+            password: 'password',
         };
 
         const response = await request(app)
@@ -136,12 +136,12 @@ describe('/auth/in', () => {
     test('It should be 403 for wrong email or password', async () => {
         const data = {
             email: 'test@test.com',
-            password: 'password'
+            password: 'password',
         };
 
         const payload = {
             email: 'test@test.com',
-            password: 'undefined_password'
+            password: 'undefined_password',
         };
 
         await request(app)
@@ -160,7 +160,7 @@ describe('/auth/in', () => {
     test('It should be 200 and 64 symbols hash for exist member', async () => {
         const data = {
             email: 'test@test.com',
-            password: 'password'
+            password: 'password',
         };
 
         await request(app)
