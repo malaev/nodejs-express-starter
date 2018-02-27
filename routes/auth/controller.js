@@ -12,11 +12,11 @@ class Auth {
         const { email } = req.params;
 
         this.models.user.findOne({ email })
-            .then(user => user
-                ? res.json({
-                    email: user.email
-                })
-                : res.error(404))
+            .then(user =>
+                user
+                    ? res.json({ email: user.email })
+                    : res.error(404)
+            )
             .catch(() => res.error(500));
     }
 
@@ -41,7 +41,7 @@ class Auth {
             browser: req.useragent.browser,
             os: req.useragent.os,
             source: req.useragent.source,
-            token: this.libs.random()
+            token: this.libs.random(),
         }];
 
         this.models.user.create({ email, password, sessions })

@@ -3,18 +3,20 @@ const router = require('express').Router();
 const services = {
     authorize: require('../middlewares/authorize'),
     libs: {
-        random: require('../libs/random')
+        random: require('../libs/random'),
     },
     models: {
-        user: require('../models/user')
-    }
+        user: require('../models/user'),
+    },
 };
 
 const Auth = require('./auth')(services);
-const User = require('./user/')(services);
+const Todo = require('./todo')(services);
+const User = require('./user')(services);
 
 router
     .use('/auth', Auth)
+    .use('/todo', Todo)
     .use('/user', User)
     .all('*', (req, res) => res.error(405));
 

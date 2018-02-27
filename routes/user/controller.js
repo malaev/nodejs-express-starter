@@ -13,7 +13,7 @@ class User {
 
     patchUser(req, res) {
         this.models.user
-            .findOneAndUpdate({ _id: req.user.id }, req.body, { new: true })
+            .findOneAndUpdate({ uuid: req.user.uuid }, req.body, { new: true })
             .select('-hash -inviteHash -__v')
             .then(user => res.json(user))
             .catch(error => res.error(error));
@@ -29,16 +29,11 @@ class User {
         if (index === -1)
             return res.error(404);
 
-        const session = sessions[index];
-        const query = [
-            { _id: req.user.id },
-            { sessions: [...sessions.slice(0, index), ...sessions.slice(index + 1)]},
-            { new: true }
-        ];
+        const data = { sessions: [...sessions.slice(0, index), ...sessions.slice(index + 1)]};
 
         this.models.user
-            .findOneAndUpdate(...query)
-            .then(() => res.json(session))
+            .findOneAndUpdate({ uuid: req.user.uuid }, data, { new: true })
+            .then(() => res.status(204).end())
             .catch(error => res.error(error));
     }
 }

@@ -6,7 +6,7 @@ env:
   node: true
 parserOptions:
   sourceType: module
-  ecmaVersion: 2017
+  ecmaVersion: 2018
 rules:
   indent:
     - error
@@ -22,3 +22,6 @@ rules:
     - always
   no-console:
     - 0
+  comma-dangle:
+    - 2
+    - objects: always-multiline

@@ -2,11 +2,11 @@ const joi = require('joi');
 const validate = require('../../middlewares/validate');
 
 const sessionSchema = {
-    uuid: joi.string().min(6).max(10).required()
+    uuid: joi.string().min(6).max(10).required(),
 };
 
-const userSchema = {
-    name: joi.string().optional()
+const patchUserSchema = {
+    name: joi.string().optional(),
 };
 
 class Validator {
@@ -15,7 +15,7 @@ class Validator {
     }
 
     static patchUser() {
-        return validate(userSchema);
+        return validate(patchUserSchema);
     }
 }
 
