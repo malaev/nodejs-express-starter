@@ -1,4 +1,4 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
 const services = {
     authorize: require('../middlewares/authorize'),
@@ -8,14 +8,14 @@ const services = {
     models: {
         user: require('../models/user')
     }
-}
+};
 
-const Auth = require('./auth')(services)
-const User = require('./user/')(services)
+const Auth = require('./auth')(services);
+const User = require('./user/')(services);
 
 router
     .use('/auth', Auth)
     .use('/user', User)
-    .all('*', (req, res) => res.error(405))
+    .all('*', (req, res) => res.error(405));
 
-module.exports = router
+module.exports = router;

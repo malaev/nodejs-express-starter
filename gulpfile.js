@@ -1,5 +1,5 @@
-const gulp = require('gulp')
-const eslint = require('gulp-eslint')
+const gulp = require('gulp');
+const eslint = require('gulp-eslint');
 
 gulp.task('lint', () =>
     gulp
@@ -7,4 +7,4 @@ gulp.task('lint', () =>
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
-)
+);

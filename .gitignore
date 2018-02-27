@@ -3,5 +3,6 @@
 .DS_Store
 
 *.log
+*lock*
 coverage
 node_modules

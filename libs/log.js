@@ -1,5 +1,5 @@
-const colors = require('colors')
+const colors = require('colors');
 
 module.exports = (message, color = 'white') => {
-    console.log(colors[color](message))
-}
+    console.log(colors[color](message));
+};
