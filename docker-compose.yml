@@ -1,20 +1,21 @@
 version: "3"
 services:
-    app:
-        container_name: nodejs-express-starter
-        restart: always
-        build: .
-        env_file:
-            - variables.env
-        ports:
-            - 5000:5000
-        links:
-            - mongo
+  app:
+    container_name: nodejs-express-starter
+    restart: always
+    build: .
+    environment:
+      - MONGODB_DB=nodejs-express-starter
+      - MONGODB_HOST=mongodb://mongo
+    ports:
+      - 5000:5000
+    links:
+      - mongo
 
-    mongo:
-        container_name: mongo
-        image: mongo
-        volumes:
-            - ./data:/data/db
-        ports:
-            - 27017:27017
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
