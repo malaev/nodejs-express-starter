@@ -1,4 +1,4 @@
-[![GitHub issues](https://img.shields.io/github/issues/salikovpro/nodejs-express-starter.svg)](https://GitHub.com/salikovpro/nodejs-express-starter/issues/)
+[![Build Status](https://travis-ci.org/salikovpro/nodejs-express-starter.svg?branch=master)](https://travis-ci.org/salikovpro/nodejs-express-starter) [![GitHub issues](https://img.shields.io/github/issues/salikovpro/nodejs-express-starter.svg)](https://GitHub.com/salikovpro/nodejs-express-starter/issues/)
 
 # nodejs-express-starter
 Node.js Express starter with MongoDB
