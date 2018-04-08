@@ -15,9 +15,7 @@ class Todo {
 
     getTodoById(req, res) {
         const { todos } = req.user;
-        const index = req.user.todos.findIndex(
-            todo => todo.uuid === req.params.uuid
-        );
+        const index = req.user.todos.findIndex(todo => todo.uuid === req.params.uuid);
 
         return index === -1
             ? res.error(404)
@@ -39,8 +37,7 @@ class Todo {
         const index = req.user.todos
             .findIndex(todo => todo.uuid === req.params.uuid);
 
-        if (index === -1)
-            return res.error(404);
+        if (index === -1) { return res.error(404); }
 
         const data = {
             todos: [
@@ -61,8 +58,7 @@ class Todo {
         const index = req.user.todos
             .findIndex(todo => todo.uuid === req.params.uuid);
 
-        if (index === -1)
-            return res.error(404);
+        if (index === -1) { return res.error(404); }
 
         const data = {
             todos: [

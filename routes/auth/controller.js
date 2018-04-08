@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 class Auth {
     constructor({ libs, models }) {
         this.libs = libs;
@@ -13,10 +14,9 @@ class Auth {
 
         this.models.user.findOne({ email })
             .then(user =>
-                user
+                (user
                     ? res.json({ email: user.email })
-                    : res.error(404)
-            )
+                    : res.error(404)))
             .catch(() => res.error(500));
     }
 
@@ -24,9 +24,8 @@ class Auth {
         const { email, password } = req.body;
 
         this.models.user.findOne({ email })
-            .then(user => {
-                if (!user)
-                    throw { status: 404 };
+            .then((user) => {
+                if (!user) { throw { status: 404 }; }
 
                 return user.signIn({ password, useragent: req.useragent });
             })
@@ -45,10 +44,9 @@ class Auth {
         }];
 
         this.models.user.create({ email, password, sessions })
-            .then(user => user
+            .then(user => (user
                 ? res.json(sessions[0].token)
-                : res.error(500)
-            )
+                : res.error(500)))
             .catch(err => res.error(err));
     }
 }

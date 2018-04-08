@@ -2,7 +2,7 @@ const joi = require('joi');
 const validate = require('../../middlewares/validate');
 
 const getTodoSchema = {
-    uuid: joi.string().min(6).max(10).required(),
+    uuid: joi.string().min(6).max(12).required(),
 };
 
 const patchTodoSchema = {
