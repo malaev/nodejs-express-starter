@@ -76,5 +76,25 @@ describe('/todo', () => {
             expect(response.body.uuid).toBe(uuid);
             expect(response.body.title).toBe(todoPayload.title);
         });
+
+        test('It should be not found response', async () => {
+            const response = await request(app)
+                .get('/todo/qwertyuiop')
+                .set({ Authorization: token });
+
+            expect(response.statusCode).toBe(404);
+        });
+
+        test('It should be deleted todo', async () => {
+            await request(app)
+                .delete(`/todo/${uuid}`)
+                .set({ Authorization: token });
+
+            const response = await request(app)
+                .delete(`/todo/${uuid}`)
+                .set({ Authorization: token });
+
+            expect(response.statusCode).toBe(404);
+        });
     });
 });
