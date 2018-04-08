@@ -7,10 +7,8 @@ module.exports = schema => (req, res, next) => {
 
     Joi.validate(body, schema)
         .then(() => next())
-        .catch(data => {
-            const errors = data.details.reduce((result, error) => {
-                return result + error.message + '\n';
-            }, '');
+        .catch((data) => {
+            const errors = data.details.reduce((result, error) => `${result + error.message}\n`, '');
 
             res.error(400, errors);
         });

@@ -1,6 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 const inspect = require('../libs/inspect');
 
-const parse = status => {
+const parse = (status) => {
     switch (status) {
     case 400:
         return 'bad_request';
@@ -37,7 +38,7 @@ module.exports = (req, res, next) => {
             return res.status(error).end(message || parse(error));
         }
 
-        if (error.code && error.code == 11000) {
+        if (error.code && error.code === 11000) {
             inspect(error);
 
             return res.status(409).end(message || parse(409));

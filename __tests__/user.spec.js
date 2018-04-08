@@ -1,7 +1,8 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
+const User = require('../models/user');
+
 const app = require('../app');
-const mongoose = require('../libs/mongoose');
-const CIDELAY = 300000;
 
 describe('/user', () => {
     const body = {
@@ -9,8 +10,18 @@ describe('/user', () => {
         password: 'password',
     };
 
-    afterEach(() => {
-        mongoose.connection.db.dropDatabase();
+    beforeAll((done) => {
+        mongoose.Promise = Promise;
+        mongoose.connect('mongodb://localhost:27017/database-test', { poolSize: 4 });
+        mongoose.connection.once('open', done);
+    });
+
+    afterAll((done) => {
+        mongoose.disconnect(done);
+    });
+
+    beforeEach((done) => {
+        User.remove({}, done);
     });
 
     test('It should be 200 with valid user email', async () => {
@@ -25,8 +36,7 @@ describe('/user', () => {
 
         expect(userResponse.statusCode).toBe(200);
         expect(userResponse.body.email).toBe(body.email);
-    }, CIDELAY);
-
+    });
 
     test('It should be 200 with valid user name', async () => {
         const authUpResponse = await request(app)
@@ -42,7 +52,7 @@ describe('/user', () => {
 
         expect(userResponse.statusCode).toBe(200);
         expect(userResponse.body.name).toBe('Test');
-    }, CIDELAY);
+    });
 
     test('It should be 204 for delete session and 403 for user', async () => {
         const authUpResponse = await request(app)
@@ -68,7 +78,7 @@ describe('/user', () => {
 
         expect(deleteSessionResponse.statusCode).toBe(204);
         expect(userResponseAfterDeleteSession.statusCode).toBe(403);
-    }, CIDELAY);
+    });
 
     test('It should be 404 for delete undefined session and 200 for user', async () => {
         const authUpResponse = await request(app)
@@ -92,5 +102,5 @@ describe('/user', () => {
 
         expect(deleteSessionResponse.statusCode).toBe(404);
         expect(userResponseAfterDeleteSession.statusCode).toBe(200);
-    }, CIDELAY);
+    });
 });

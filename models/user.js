@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal,func-names */
 const uuid = require('shortid');
 const crypt = require('crypto-js');
 const moment = require('moment');
@@ -82,29 +83,27 @@ const userSchema = new mongoose.Schema({
     name: String,
 });
 
-sessionSchema.pre('save', function(next) {
+sessionSchema.pre('save', function (next) {
     this.updatedAt = moment();
     next();
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
     this.updatedAt = moment();
     next();
 });
 
-userSchema.virtual('password').set(function(value) {
+userSchema.virtual('password').set(function (value) {
     this.hash = crypt.SHA512(value).toString();
 });
 
-userSchema.methods.signIn = function({ password, useragent }) {
-    if (crypt.SHA512(password).toString() !== this.hash)
-        throw { status: 403 };
+userSchema.methods.signIn = function ({ password, useragent }) {
+    if (crypt.SHA512(password).toString() !== this.hash) { throw { status: 403 }; }
 
     const index = this.sessions
-        .findIndex(session => session.source == useragent.source);
+        .findIndex(session => session.source === useragent.source);
 
-    if (index !== -1)
-        this.sessions.splice(index, 1);
+    if (index !== -1) { this.sessions.splice(index, 1); }
 
     const session = {
         browser: useragent.browser,

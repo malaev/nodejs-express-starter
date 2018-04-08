@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const router = require('express').Router();
 
 const services = {

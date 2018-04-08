@@ -19,4 +19,4 @@ node_js:
 
 script:
     - mongo --eval 'db.hostInfo()'
-    - "npm test"
+    - npm test

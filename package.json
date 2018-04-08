@@ -6,11 +6,13 @@
   "scripts": {
     "start": "node ./server.js",
     "test": "npm run lint && npm run jest",
-    "jest": "jest --coverage --ci",
-    "lint": "gulp lint"
+    "jest": "jest -i --coverage --ci",
+    "lint": "eslint ./**/*.js !./**/node_modules/** !./**/coverage/**"
   },
   "jest": {
-    "forceExit": true,
+    "testEnvironment": "node",
+    "bail": true,
+    "verbose": true,
     "coveragePathIgnorePatterns": [
       "/libs/",
       "/middlewares/",
@@ -31,6 +33,11 @@
   "bugs": {
     "url": "https://github.com/salikovpro/nodejs-express-starter/issues"
   },
+  "config": {
+    "ghooks": {
+      "pre-push": "npm test"
+    }
+  },
   "homepage": "https://github.com/salikovpro/nodejs-express-starter#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -50,15 +57,10 @@
     "shortid": "^2.2.8"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-preset-env": "^1.6.1",
     "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.2",
+    "ghooks": "^2.0.2",
     "jest": "^22.3.0",
     "superagent": "^3.8.2",
     "supertest": "^3.0.0"
