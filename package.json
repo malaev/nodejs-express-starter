@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server.js",
-    "test": "npm run lint && npm run jest",
-    "jest": "jest --coverage --ci",
+    "test": "npm run lint && npm run jest -i",
+    "jest": "jest -i --coverage --ci",
     "lint": "eslint ."
   },
   "jest": {
