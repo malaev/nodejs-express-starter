@@ -96,5 +96,24 @@ describe('/todo', () => {
 
             expect(response.statusCode).toBe(404);
         });
+
+        test('It should be patched todo', async () => {
+            const response = await request(app)
+                .patch(`/todo/${uuid}`)
+                .type('form')
+                .send({ title: 'new_title' })
+                .set({ Authorization: token });
+
+            expect(response.statusCode).toBe(200);
+            expect(response.body.title).toBe('new_title');
+        });
+
+        test('It should be validation error for bad uuid', async () => {
+            const response = await request(app)
+                .delete('/todo/1')
+                .set({ Authorization: token });
+
+            expect(response.statusCode).toBe(400);
+        });
     });
 });
