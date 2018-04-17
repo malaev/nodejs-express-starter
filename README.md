@@ -33,7 +33,7 @@ You must have runned your local MongoDB daemon at `:27017`
 
 ---
 
-![Tests](https://github.com/iknpx/nodejs-express-starter/master/tests.png)
+![Tests](https://raw.githubusercontent.com/iknpx/nodejs-express-starter/master/tests.png)
 
 ### TODO
 * Socket support
