@@ -31,6 +31,10 @@ You must have runned your local MongoDB daemon at `:27017`
 ### Test
 ``npm test``
 
+---
+
+![Tests](https://github.com/iknpx/nodejs-express-starter/master/tests.png)
+
 ### TODO
 * Socket support
 * Swagger documentation
