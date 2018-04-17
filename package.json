@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salikovpro/nodejs-express-starter.git"
+    "url": "git+https://github.com/iknpx/nodejs-express-starter.git"
   },
   "keywords": [
     "Node.js",
@@ -32,14 +32,14 @@
   "author": "Iakov Salikov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/salikovpro/nodejs-express-starter/issues"
+    "url": "https://github.com/iknpx/nodejs-express-starter/issues"
   },
   "config": {
     "ghooks": {
       "pre-push": "npm test"
     }
   },
-  "homepage": "https://github.com/salikovpro/nodejs-express-starter#readme",
+  "homepage": "https://github.com/iknpx/nodejs-express-starter#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
