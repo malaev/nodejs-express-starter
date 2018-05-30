@@ -15,7 +15,7 @@ install:
     - sleep 3
 
 node_js:
-  - "8.9.4"
+  - "8.11.2"
 
 script:
     - mongo --eval 'db.hostInfo()'
