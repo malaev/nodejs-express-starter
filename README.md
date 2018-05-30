@@ -14,28 +14,3 @@ Node.js Express starter with MongoDB
 * Just add your own models and routes
 * ``docker-compose up --build``
 * Have a fun!
-
-### Running
-You must have runned your local MongoDB daemon at `:27017`
-* ``make`` - run develop server
-* ``make test`` - run local tests
-
-### Default enpoints
-* ``[GET]: /auth/:email`` - check if email exist
-* ``[POST]: /auth/in`` - authorize user by `email` and `password`
-* ``[POST]: /auth/up`` - create user by `email` and `password`
-* ``[GET]: /user`` - get user
-* ``[PATCH]: /user`` - update user
-* ``[DELETE]: /user/session/:uuid`` - remove user session
-
-### Test
-``npm test``
-
----
-
-![Tests](https://raw.githubusercontent.com/iknpx/nodejs-express-starter/master/tests.png)
-
-### TODO
-* Socket support
-* Swagger documentation
-* GrpahQL support

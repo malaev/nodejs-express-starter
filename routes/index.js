@@ -1,24 +1,21 @@
-/* eslint-disable global-require */
 const router = require('express').Router();
 
+const auth = require('./auth');
+
+const authorize = require('../middlewares/authorize');
+const HttpError = require('../errors/HttpError');
+
+const userModel = require('../models/user');
+
 const services = {
-    authorize: require('../middlewares/authorize'),
-    libs: {
-        random: require('../libs/random'),
-    },
     models: {
-        user: require('../models/user'),
+        user: userModel,
     },
 };
 
-const Auth = require('./auth')(services);
-const Todo = require('./todo')(services);
-const User = require('./user')(services);
-
 router
-    .use('/auth', Auth)
-    .use('/todo', Todo)
-    .use('/user', User)
-    .all('*', (req, res) => res.error(405));
+    .use('/auth', auth(services))
+    .use('/status', authorize, (req, res) => res.json({ status: 'ok' }))
+    .all('*', () => { throw new HttpError(405); });
 
 module.exports = router;

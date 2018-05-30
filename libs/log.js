@@ -1,5 +1,5 @@
 const colors = require('colors');
 
 module.exports = (message, color = 'white') => {
-    console.log(colors[color](message));
+    process.stdout.write(colors[color](message) + '\n');
 };

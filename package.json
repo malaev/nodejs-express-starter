@@ -4,6 +4,7 @@
   "description": "Node.js Express starter with MongoDB",
   "main": "server.js",
   "scripts": {
+    "dev": "nodemon ./server.js",
     "start": "node ./server.js",
     "test": "npm run lint && npm run jest -i",
     "jest": "jest -i --ci",
@@ -61,8 +62,10 @@
     "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jest": "^21.17.0",
     "ghooks": "^2.0.2",
     "jest": "^22.3.0",
+    "nodemon": "^1.17.5",
     "superagent": "^3.8.2",
     "supertest": "^3.0.0"
   }

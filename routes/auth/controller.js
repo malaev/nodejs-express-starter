@@ -1,54 +1,56 @@
-/* eslint-disable no-throw-literal */
-class Auth {
-    constructor({ libs, models }) {
-        this.libs = libs;
+class AuthController {
+    constructor({ models }) {
         this.models = models;
 
         this.checkEmail = this.checkEmail.bind(this);
-        this.authIn = this.authIn.bind(this);
-        this.authUp = this.authUp.bind(this);
+        this.signIn = this.signIn.bind(this);
     }
 
-    checkEmail(req, res) {
-        const { email } = req.params;
+    /**
+     * @path [get] /:email
+     *
+     * @param request
+     * @param response
+     * @param next
+     */
+    checkEmail(request, response, next) {
+        const { email } = request.params;
 
-        this.models.user.findOne({ email })
-            .then(user =>
-                (user
-                    ? res.json({ email: user.email })
-                    : res.error(404)))
-            .catch(() => res.error(500));
-    }
-
-    authIn(req, res) {
-        const { email, password } = req.body;
-
-        this.models.user.findOne({ email })
-            .then((user) => {
-                if (!user) { throw { status: 404 }; }
-
-                return user.signIn({ password, useragent: req.useragent });
+        this.models.user
+            .findOne({ email })
+            .then(user => {
+                response.json({
+                    email: user.email,
+                    icon: user.icon,
+                    name: user.name,
+                });
             })
-            .then(session => res.json(session))
-            .catch(err => res.error(err));
+            .catch(next);
     }
 
-    authUp(req, res) {
-        const { email, password } = req.body;
+    /**
+     * @path [post] /in
+     *
+     * @param request
+     * @param response
+     * @param next
+     */
+    signIn(request, response, next) {
+        const { email, password } = request.body;
 
-        const sessions = [{
-            browser: req.useragent.browser,
-            os: req.useragent.os,
-            source: req.useragent.source,
-            token: this.libs.random(),
-        }];
-
-        this.models.user.create({ email, password, sessions })
-            .then(user => (user
-                ? res.json(sessions[0].token)
-                : res.error(500)))
-            .catch(err => res.error(err));
+        this.models.user
+            .findOne({ email })
+            .then(user => user.signIn({
+                password,
+                ip: request.ip,
+                useragent: request.useragent,
+            }))
+            .then(session => response.json(session))
+            .catch(next);
     }
 }
 
-module.exports = Auth;
+/**
+ * @type {AuthController}
+ */
+module.exports = AuthController;

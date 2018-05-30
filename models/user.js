@@ -1,118 +1,131 @@
-/* eslint-disable no-throw-literal,func-names */
 const uuid = require('shortid');
 const crypt = require('crypto-js');
 const moment = require('moment');
 
+const config = require('../config');
+const MongoError = require('../errors/MongoError');
 const mongoose = require('../libs/mongoose');
 const random = require('../libs/random');
 
-const sessionSchema = new mongoose.Schema({
-    createdAt: {
-        type: Date,
-        default: moment,
-    },
-    updatedAt: {
-        type: Date,
-        default: moment,
-    },
+const contactsSchema = new mongoose.Schema({
     uuid: {
-        type: String,
-        index: true,
         default: uuid.generate,
+        index: true,
+        type: String,
+    },
+    type: String,
+    value: String,
+}, { timestamps: true, _id: false, id: false });
+
+const sessionSchema = new mongoose.Schema({
+    uuid: {
+        default: uuid.generate,
+        index: true,
+        type: String,
     },
     browser: String,
+    ip: String,
     os: String,
     source: String,
     token: String,
-});
-
+}, { timestamps: true, _id: false, id: false });
 
 const todoSchema = new mongoose.Schema({
-    createdAt: {
-        type: Date,
-        default: moment,
-    },
-    updatedAt: {
-        type: Date,
-        default: moment,
-    },
     uuid: {
-        type: String,
-        index: true,
         default: uuid.generate,
-    },
-    time: {
-        type: Date,
-        default: moment,
+        index: true,
+        type: String,
     },
     done: {
-        type: Boolean,
         default: false,
+        type: Boolean,
+    },
+    time: {
+        default: moment,
+        type: Date,
     },
     title: String,
-});
+}, { timestamps: true, _id: false, id: false });
+
+const settingsSchema = new mongoose.Schema({
+    compact: {
+        default: false,
+        type: Boolean,
+    },
+}, { _id: false, id: false });
 
 const userSchema = new mongoose.Schema({
-    createdAt: {
-        type: Date,
-        default: moment,
-    },
-    updatedAt: {
-        type: Date,
-        default: moment,
+    uuid: {
+        default: uuid.generate,
+        index: true,
+        type: String,
+        unique: true,
     },
     email: {
-        type: String,
+        index: true,
         required: true,
-        unique: true,
-        index: true,
-    },
-    uuid: {
         type: String,
         unique: true,
-        index: true,
-        default: uuid.generate,
     },
     hash: {
-        type: String,
-        index: true,
         default: random,
+        index: true,
+        type: String,
     },
-    sessions: [sessionSchema],
-    todos: [todoSchema],
+    icon: {
+        default: config.get('ASSETS:ICON'),
+        type: String,
+    },
     name: String,
+    contacts: contactsSchema,
+    sessions: [sessionSchema],
+    settings: settingsSchema,
+    todos: [todoSchema],
+}, { timestamps: true, id: false });
+
+userSchema.static('checkSession', function(token) {
+    return this.findOne({ 'sessions.token': token })
+        .select('-hash -_id')
+        .populate({
+            path: 'team',
+            select: '-_id -users',
+        })
+        .catch(() => { throw new MongoError(401); });
 });
 
-sessionSchema.pre('save', function (next) {
-    this.updatedAt = moment();
-    next();
-});
-
-userSchema.pre('save', function (next) {
-    this.updatedAt = moment();
-    next();
-});
-
-userSchema.virtual('password').set(function (value) {
+userSchema.virtual('password').set(function(value) {
     this.hash = crypt.SHA512(value).toString();
 });
 
-userSchema.methods.signIn = function ({ password, useragent }) {
-    if (crypt.SHA512(password).toString() !== this.hash) { throw { status: 403 }; }
+userSchema.post('findOne', function(result, next) {
+    if (!result) {
+        return next(new MongoError(404));
+    }
+
+    return next();
+});
+
+userSchema.methods.signIn = function({ password, ip, useragent }) {
+    if (crypt.SHA512(password).toString() !== this.hash) {
+        throw new MongoError(403);
+    }
 
     const index = this.sessions
-        .findIndex(session => session.source === useragent.source);
+        .findIndex(session => session.ip === ip && session.source === useragent.source);
 
-    if (index !== -1) { this.sessions.splice(index, 1); }
+    if (index !== -1) {
+        this.sessions.splice(index, 1);
+    }
 
     const session = {
+        ip,
         browser: useragent.browser,
         os: useragent.os,
         source: useragent.source,
         token: random(),
     };
 
-    this.sessions = [session, ...this.sessions];
+    this.sessions.unshift(session);
 
     return this.save()
         .then(() => session.token || '');

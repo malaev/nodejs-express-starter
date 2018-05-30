@@ -1,21 +1,18 @@
 const User = require('../models/user');
+const HttpError = require('../errors/HttpError');
 
-module.exports = (req, res, next) => {
-    const token = req.headers.authorization;
+module.exports = (request, response, next) => {
+    const token = request.headers.authorization;
 
-    if (!token || token.length < 60) { return res.error(401); }
+    if (!token || token.length < 60) {
+        throw new HttpError(401);
+    }
 
-    return User.findOne({ 'sessions.token': token })
-        .select('-hash -inviteHash -__v')
-        .populate({
-            path: 'sessions',
-            select: '-_id',
-        })
+    return User.checkSession(token)
         .then((user) => {
-            if (!user) { return res.error(403); }
+            request.user = user;
 
-            req.user = user;
-            return next();
+            next();
         })
-        .catch(() => res.error(500));
+        .catch(next);
 };

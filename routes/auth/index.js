@@ -1,15 +1,18 @@
 const router = require('express').Router();
-
-const Controller = require('./controller');
+const AuthController = require('./controller');
 const Validator = require('./validator');
 
-module.exports = ({ libs, models }) => {
-    const routes = new Controller({ libs, models });
+/**
+ * @path /auth
+ *
+ * @param services
+ * @return {*}
+ */
+module.exports = services => {
+    const controller = new AuthController(services);
 
-    // Routes configuration
-    router.get('/:email', Validator.checkEmail(), routes.checkEmail);
-    router.post('/in', Validator.checkAuth(), routes.authIn);
-    router.post('/up', Validator.checkAuth(), routes.authUp);
+    router.get('/:email', Validator.checkEmail(), controller.checkEmail);
+    router.post('/in', Validator.signIn(), controller.signIn);
 
     return router;
 };

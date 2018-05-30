@@ -1,7 +1,10 @@
-/* eslint-disable no-underscore-dangle */
 const inspect = require('../libs/inspect');
 
-const parse = (status) => {
+/**
+ * @param {number} status
+ * @return {string}
+ */
+const parseErrorMessage = status => {
     switch (status) {
     case 400:
         return 'bad_request';
@@ -32,40 +35,16 @@ const parse = (status) => {
     }
 };
 
-module.exports = (req, res, next) => {
-    res.error = (error, message = null) => {
-        if (typeof error === 'number') {
-            return res.status(error).end(message || parse(error));
-        }
+// eslint-disable-next-line no-unused-vars
+module.exports = (err, req, res, next) => {
+    if (err.status) {
+        return res.status(err.status).end(err.message || parseErrorMessage(err.status));
+    }
 
-        if (error.code && error.code === 11000) {
-            inspect(error);
+    if (err.code && err.code === 11000) {
+        return res.status(409).end(parseErrorMessage(409));
+    }
 
-            return res.status(409).end(message || parse(409));
-        }
-
-        if (error.name && (error.name === 'ValidationError' || error.name === 'CastError')) {
-            inspect(error);
-
-            res.statusMessage = error._message;
-            return res.status(400).end();
-        }
-
-        if (error.status && error.message) {
-            inspect(error);
-
-            return res.status(error.status).end(error.message);
-        }
-
-        if (error.status) {
-            inspect(error);
-
-            return res.status(error.status).end(message || parse(error.status));
-        }
-
-        inspect(error);
-        return res.status(500).end(message || parse(500));
-    };
-
-    next();
+    inspect(err);
+    return res.status(500).end('internal_server_error');
 };

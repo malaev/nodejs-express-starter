@@ -1,4 +1,7 @@
 {
+    "ASSETS": {
+        "ICON": "https://cdn.dayler.io/images/avatar.svg"
+    },
     "PORT": 5000,
     "BODY": {
         "URLENCODED": { "extended": true, "limit": "50mb" },
