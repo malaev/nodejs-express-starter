@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/iknpx/nodejs-express-starter.svg?branch=master)](https://travis-ci.org/iknpx/nodejs-express-starter) [![GitHub issues](https://img.shields.io/github/issues/iknpx/nodejs-express-starter.svg)](https://GitHub.com/iknpx/nodejs-express-starter/issues/)
-
 # nodejs-express-starter
 Node.js Express starter with MongoDB
 
