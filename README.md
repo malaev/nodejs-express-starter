@@ -1,6 +1,6 @@
-![Build Status](https://drone.dayler.io/api/badges/iknpx/nodejs-express-starter/status.svg)
----
 # nodejs-express-starter
+![Build Status](https://drone.dayler.io/api/badges/iknpx/nodejs-express-starter/status.svg)
+
 [Example](http://nodejs-express-starter.tk)
 
 ### Stack
