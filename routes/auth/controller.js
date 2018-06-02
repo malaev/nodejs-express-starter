@@ -4,10 +4,11 @@ class AuthController {
 
         this.checkEmail = this.checkEmail.bind(this);
         this.signIn = this.signIn.bind(this);
+        this.signUp = this.signUp.bind(this);
     }
 
     /**
-     * @path [get] /:email
+     * @path [get] /check/:email
      *
      * @param request
      * @param response
@@ -45,7 +46,24 @@ class AuthController {
                 ip: request.ip,
                 useragent: request.useragent,
             }))
-            .then(session => response.json(session))
+            .then(token => response.json(token))
+            .catch(next);
+    }
+
+    /**
+     * @path [post] /up
+     *
+     * @param request
+     * @param response
+     * @param next
+     */
+    signUp(request, response, next) {
+        const { email, password, name } = request.body;
+        const { ip, useragent } = request;
+
+        this.models.user
+            .signUp({ email, password, name, ip, useragent })
+            .then(token => response.json(token))
             .catch(next);
     }
 }

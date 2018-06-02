@@ -1,0 +1,40 @@
+pipeline:
+  install:
+    image: node:carbon
+    commands:
+      - npm install --quiet
+    when:
+      branch: [ master ]
+      event: [ push, pull_request ]
+
+  lint:
+    image: node:carbon
+    commands:
+      - npm run lint
+    when:
+      branch: [ master ]
+      event: [ push, pull_request ]
+
+  docker:
+    image: plugins/docker
+    repo: iknpx/nodejs-express-starter
+    tags: latest
+    secrets: [ docker_username, docker_password ]
+    when:
+      branch: [ master ]
+      event: [ push ]
+
+  ssh:
+    image: appleboy/drone-ssh
+    pull: true
+    host: 185.93.111.56
+    user: root
+    port: 22
+    pull: true
+    command_timeout: 3600
+    secrets: [ ssh_key ]
+    script:
+      - cd /etc/api
+      - sh deploy.sh
+    when:
+      event: [push, tag, deployment]

@@ -85,11 +85,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.static('checkSession', function(token) {
     return this.findOne({ 'sessions.token': token })
-        .select('-hash -_id')
-        .populate({
-            path: 'team',
-            select: '-_id -users',
-        })
+        .select('-hash -_id -__v')
         .catch(() => { throw new MongoError(401); });
 });
 
@@ -129,6 +125,19 @@ userSchema.methods.signIn = function({ password, ip, useragent }) {
 
     return this.save()
         .then(() => session.token || '');
+};
+
+userSchema.statics.signUp = function({ email, name, password, ip, useragent }) {
+    const session = {
+        ip,
+        browser: useragent.browser,
+        os: useragent.os,
+        source: useragent.source,
+        token: random(),
+    };
+
+    return this.create({ name, email, password, sessions: [session] })
+        .then(() => session.token);
 };
 
 module.exports = mongoose.model('user', userSchema);

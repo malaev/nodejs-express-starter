@@ -2,7 +2,10 @@
 *sublime*
 .DS_Store
 
+*-lock.json
+*.lock
 *.log
-*lock*
+
+dist
 coverage
 node_modules

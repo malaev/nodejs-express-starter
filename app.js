@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const useragent = require('express-useragent');
 
 const config = require('./config');
-const error = require('./middlewares/error');
+const errorHandler = require('./middlewares/errorHandler');
 const router = require('./routes');
 
 const app = new Express();
@@ -17,7 +17,7 @@ app.use(morgan(TEST ? () => {} : config.get('LOGGER')));
 app.use(useragent.express());
 app.use(body.urlencoded(config.get('BODY:URLENCODED')));
 app.use(body.json(config.get('BODY:JSON')));
-app.use(error);
 app.use(router);
+app.use(errorHandler);
 
 module.exports = app;

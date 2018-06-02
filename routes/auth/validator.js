@@ -14,6 +14,14 @@ class Validator {
             password: joi.string().min(8).required(),
         });
     }
+
+    static signUp() {
+        return validate({
+            email: joi.string().email({ minDomainAtoms: 2 }).required(),
+            name: joi.string(),
+            password: joi.string().min(8).required(),
+        });
+    }
 }
 
 /**

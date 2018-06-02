@@ -9,20 +9,21 @@ insert_final_newline = true
 max_line_length = 180
 trim_trailing_whitespace = true
 
+[*.styl]
+indent_size = 4
+indent_style = tabs
+
+[*.yml]
+indent_size = 2
+indent_style = space
+
 [*.md]
 max_line_length = 0
 trim_trailing_whitespace = false
 
-[*.yml]
-indent_size = 2
-
-[Makefile]
-indent_style = tabs
-indent_size = 4
-
 [package.json]
-indent_style = space
 indent_size = 2
+indent_style = space
 
 [COMMIT_EDITMSG]
 max_line_length = 0

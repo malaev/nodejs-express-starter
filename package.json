@@ -6,20 +6,8 @@
   "scripts": {
     "dev": "nodemon ./server.js",
     "start": "node ./server.js",
-    "test": "npm run lint && npm run jest -i",
-    "jest": "jest -i --ci",
-    "jest:coverage": "jest -i --coverage",
+    "test": "jest",
     "lint": "eslint ."
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "bail": true,
-    "verbose": true,
-    "coveragePathIgnorePatterns": [
-      "/libs/",
-      "/middlewares/",
-      "/node_modules/"
-    ]
   },
   "repository": {
     "type": "git",
@@ -35,9 +23,25 @@
   "bugs": {
     "url": "https://github.com/iknpx/nodejs-express-starter/issues"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/app/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "__tests__/setup"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 10,
+        "functions": 10,
+        "lines": 10,
+        "statements": 10
+      }
+    }
+  },
   "config": {
     "ghooks": {
-      "pre-push": "npm test"
+      "pre-commit": "npm run lint"
     }
   },
   "homepage": "https://github.com/iknpx/nodejs-express-starter#readme",

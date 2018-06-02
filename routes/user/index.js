@@ -3,7 +3,7 @@ const AuthController = require('./controller');
 const Validator = require('./validator');
 
 /**
- * @path /auth
+ * @path /user
  *
  * @param services
  * @return {*}
@@ -11,9 +11,8 @@ const Validator = require('./validator');
 module.exports = services => {
     const controller = new AuthController(services);
 
-    router.get('/check/:email', Validator.checkEmail(), controller.checkEmail);
-    router.post('/in', Validator.signIn(), controller.signIn);
-    router.post('/up', Validator.signUp(), controller.signUp);
+    router.get('/', controller.getUser);
+    router.patch('/', Validator.updateUser(), controller.updateUser);
 
     return router;
 };
