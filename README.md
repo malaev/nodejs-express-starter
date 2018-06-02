@@ -1,4 +1,7 @@
-# [nodejs-express-starter](http://nodejs-express-starter.tk)
+![Build Status](https://drone.dayler.io/api/badges/iknpx/nodejs-express-starter/status.svg)
+---
+# nodejs-express-starter
+[Example](http://nodejs-express-starter.tk)
 
 ### Stack
 * [Express.js](http://expressjs.com)
